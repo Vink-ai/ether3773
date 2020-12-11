@@ -128,8 +128,8 @@ STATIC_URL = '/static/'
 ACCOUNT_ACTIVATION_DAYS=2
 
 EMAIL_HOST= 'smtp.gmail.com'
-EMAIL_HOST_USER= 'vinkamble2015@gmail.com'
-EMAIL_HOST_PASSWORD= 'Vink@12345'
+EMAIL_HOST_USER= 'aatmanirbharbros@gmail.com'
+EMAIL_HOST_PASSWORD= 'Aatmanirbhar&7'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True
 
