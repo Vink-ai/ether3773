@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <link href="/static/vender/bs/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/static/vender/jquery-3.3.1.min.js"></script>
+    <script src="/static/vender/popper.min.js"></script>
+    <script src="/static/vender/bs/js/bootstrap.min.js"></script>
+    <link href="/static/vender/fa/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="/static/vender/jquery.min.js"></script>
+
+
+    <link href="{%static 'social/css/timeline.css' %}" rel="stylesheet">
+    <link href="{%static 'social/css/basic.css' %}" rel="stylesheet">
+    <link href="{%static 'social/css/result.css' %}" rel="stylesheet">
+    <link href="{%static 'social/css/modal.css' %}" rel="stylesheet">
+
+
+      <title>{% block title %} {% endblock %}</title>
+
+      <style>
+
+        {% block style %}{% endblock %}
+
+        @media (max-width: 880px){
+
+            {% block styleSmall %}{% endblock %}
+        }
+
+      </style>
+
+      <script src="/static/social/script/basic.js"></script>
+      {% block head %} {% endblock %}
+
+  </head>
+
+  <body style="background:#e8e8e8; word-wrap: break-word;" >
+
+      <nav class="navbar navbar-expand-lg sticky-top navbar-dark bkg-dark " style="overflow-y:hidden;">
+
+        <a class="navbar-brand" href="/"><img class="brandLogo" src="{%static 'social/all/logo.png' %}"></a>
+
+        <form class="form-inline" action="/home/search/" method="get">{% csrf_token %}
+            <div class="input-group search-input" >
+              <input type="text" class="form-control" name="search" placeholder="Search" value="{{query}}" style="background:#e0e0e0;height: 35px;">
+              <button class="input-group-append p-0" style="border: none; border-radius: 5px; cursor: pointer;" type="submit" >
+                <span class="input-group-text" style="background:#c5c5c5;height: 35px;"><i class="material-icons">search</i></span>
+              </button>
+            </div>
+        </form>
+
+        <ul class="navbar-nav " style="">
+
+            <li class="nav-item {% block profileActive %}{% endblock %} input-group-prepend " style="padding-right:10px;">
+                <a class="nav-link" href="/profile/{{user.profile.pk}}">
+                    <span style="align-self: center;"><img class="profile-icon" style="width:22px;height:22px;" src="/media/{{user.profile.profile_pic}}"></span>
+                    {% if user.first_name == "" %}
+                        <!--{{i.desc|slice:"0:53"}}...-->
+                        {{user.username|slice:"0:12"}}
+                    {% else %}
+                        {{user.profile.name|slice:"0:12"}}
+                    {% endif %}
+                </a>
+            </li>
+
+            <li class="nav-item {% block homeActive %}{% endblock %}" style="border-left:1px solid #4a4a4a; padding-left:10px;">
+                <a class="nav-link" href="/home">Home</a>
+            </li>
+
+            <div class="nav-item social-icon ">
+
+                <li class="nav-item {% block chatActive %}{% endblock %}">
+                    <a title="Chat" class="nav-link" href="/chat">
+                        <span><i class="material-icons link-icon">forum</i></span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+
+                <li class="nav-item {% block notificationActive %}{% endblock %}">
+                    <a title="Notifications" class="nav-link" href="/notification">
+                        <span><i class="material-icons link-icon">notifications</i></span>
+                        <span class="badge " id="notification_badge" >0</span>
+                    </a>
+                </li>
+
+            </div>
+
+            <li class="nav-item  setting {% block settingActive %}{% endblock %}">
+                <a title="Settings" class="nav-link" href="/setting"><i class="material-icons link-icon" style="margin: 0;" >settings</i></a>
+            </li>
+
+            <li class="nav-item  logout">
+                <a title="Logout" class="nav-link" href="/accounts/logout/"><i class="material-icons link-icon">power_settings_new</i></a>
+            </li>
+
+        </ul>
+
+      </nav>
+
+      <div class="container-fluid" style="background: #e8e8e8;">
+
+          <div class="row">
+
+                <div class="col-md-9 timeline">
+                {% block timeline %} {% endblock %}
+                </div>
+
+                <div class="col-md-3 chat-list 	d-none d-md-block">
+
+                    <div class="chat-head">
+                        <h3>Chats</h3>
+                    </div>
+
+                    <div class="chat-body">
+                        {% if chat_frd != 0  %}
+                        {% for i in chat_frd %}
+                        <a class="p-1 tc fs a-link " href="/chat/message/{{i.pk}}">
+                            <span style="align-self: center;" ><img class="profile-icon" src="/media/{{ i.profile_pic }}"> </span>
+                            {{i.name}} {{i.last_name}}
+                        </a>
+                        <hr>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <div class="chat-footer">
+                        <form class="form-inline" action="/chat/search/" method="get">{% csrf_token %}
+                            <div class="input-group search-input" >
+                              <input type="text" class="form-control" name="search" placeholder="Search" value="{{cquery}}" style="background:#f0f0f0;height: 1.9rem;">
+                              <button class="input-group-append p-0" style="border: none; border-radius: 5px; cursor: pointer;" type="submit" >
+                                <span class="input-group-text" style="background:#d5d5d5;height: 1.9rem;"><i class="material-icons">search</i></span>
+                              </button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                </div>
+
+          </div>
+
+      </div>
+
+
+      <div class="modal fade bd-example-modal-sm" id="progress" tabindex="-1" role="dialog" >
+          <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+
+            <div class="modal-content" style="align-items: center;background:transparent;border: 0;">
+                  <div class="modal-body">
+                      <img src="/static/social/all/wait.gif" style="width:10rem;">
+                  </div>
+            </div>
+
+          </div>
+      </div>
+
+
+
+
+    {% block body %} {% endblock %}
+
+
+    <script>
+    {% block js %} {% endblock %}
+    </script>
+
+  </body>
+</html>

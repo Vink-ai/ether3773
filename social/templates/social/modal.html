@@ -1,0 +1,28 @@
+<div class="modal fade bd-example-modal-sm" id="likes{{i.pk}}" tabindex="-1" role="dialog" >
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" >Likes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-like-body pt{{i.pk}}">
+
+                {% for l in likes%}
+                {% if l.post == i %}
+                <div class="t{{l.liked_by.pk}}p{{i.pk}}" style="padding:.5rem; border-bottom: .5px solid #cecece;">
+                    <a class="tc fs a-link" href="/profile/{{l.liked_by.pk}}" >
+                        <span style="align-self: center;" ><img class="profile-icon" src="/media/{{l.liked_by.profile_pic}}"> </span>
+                         {{l.liked_by.name}} {{l.liked_by.last_name}}
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>

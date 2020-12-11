@@ -1,0 +1,275 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+
+{% block title %}Ether - Profile{% endblock %}
+
+{% block head %}
+    <link href="{%static 'social/css/profile.css' %}" rel="stylesheet">
+    <link href="{%static 'social/css/photos.css' %}" rel="stylesheet">
+    <script src="/static/social/script/profile.js"></script>
+{% endblock %}
+
+{% block style %}{% endblock %}
+
+{% block styleSmall %}{% endblock %}
+
+{% block profileActive %}active{% endblock %}
+
+{% block timeline %}
+<div class="col-12 profile">
+    <img class="cover-img" src="/media/{{my_profile.cover_pic}}">
+    <img class="profile-pic" id="profile_pic" src="/media/{{my_profile.profile_pic}}" data-toggle="modal" data-target="#profile_modal" >
+</div>
+
+<div class="col-12 profile">
+
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background:#171717;">
+
+        <h3 class="navbar-brand" >
+          {{my_profile.name}}
+        </h3>
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+            <hr class=" d-lg-none" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <ul class="nav nav-tabs " id="myTab" role="tablist" style=" display: contents;">
+              <li class="nav-item">
+                <a class="nav-link active" onclick="heading('1')" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="true">timeline</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="photos-tab" onclick="heading('4')" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">photos</a>
+              </li>
+
+              {% if user.profile == my_profile or you in 'follow' %}
+              <li class="nav-item">
+                <a class="nav-link" id="following-tab" onclick="heading('2')" data-toggle="tab" href="#following" role="tab" aria-controls="following" aria-selected="false">following</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="followers-tab" onclick="heading('3')" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">followers</a>
+              </li>
+              {% endif %}
+
+              <li class="nav-item">
+                <a class="nav-link" id="about-tab" onclick="heading('5')" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false">about</a>
+              </li>
+            </ul>
+
+        </div>
+
+
+        <div class="friend-request">
+            <div class="col-lg-8 d-lg-none w-100">
+                <h5 style="color: rgb(183, 183, 183); font-family: cursive; font-weight: 700;" id="heading1">Timeline</h5>
+                <h5 style="color: rgb(183, 183, 183); font-family: cursive; font-weight: 700;" id="heading2">Following</h5>
+                <h5 style="color: rgb(183, 183, 183); font-family: cursive; font-weight: 700;" id="heading3">Followers</h5>
+                <h5 style="color: rgb(183, 183, 183); font-family: cursive; font-weight: 700;" id="heading4">Photos</h5>
+                <h5 style="color: rgb(183, 183, 183); font-family: cursive; font-weight: 700;" id="heading5">About</h5>
+            </div>
+
+
+                {% if user.profile != my_profile %}
+
+                    {% if you == '0'  and other == '0' %}
+
+                        <div class="btn-group follow">
+                          <button type="button" data-pid="{{my_profile.pk}}" class="btn btn-warning follow_btn">Follow</button>
+                        </div>
+
+                        <div class="btn-group d-none requested" >
+                          <button type="button"  class="btn btn-danger dropdown-toggle requested" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Requested
+                          </button>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item f-option" data-pid="{{my_profile.pk}}" data-opt="cancel_req" >Cancel Request</a>
+                          </div>
+                        </div>
+
+                    {% elif you == '0'  and other == 'follow' %}
+
+                        <div class="btn-group follow">
+                          <button type="button" class="btn btn-warning follow_btn" data-pid="{{my_profile.pk}}">Follow Back</button>
+                        </div>
+
+                        <div class="btn-group d-none requested" >
+                          <button type="button" class="btn btn-danger dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Requested
+                          </button>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item f-option" data-pid="{{my_profile.pk}}" data-opt="cancel_req">Cancel Request</a>
+                          </div>
+                        </div>
+
+                    {% elif you in 'follow'  and other == 'request' %}
+
+                        <div class="btn-group accept_req">
+                          <button type="button" class="btn btn-success accept_req_btn" data-pid="{{my_profile.pk}}" >Accept Request</button>
+                          <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left: 1px solid #004c06;">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="reject">Reject</a>
+                          </div>
+                        </div>
+
+                        <div class="btn-group d-none accept_req2" >
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Following
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="unfollow">Unfollow</a>
+                            <a class="dropdown-item " href="/chat/message/{{my_profile.pk}}" >Message</a>
+                          </div>
+                        </div>
+
+                    {% elif you in 'request'  and other == 'request' %}
+
+                        <div class="btn-group accept_req">
+                          <button type="button" class="btn btn-success accept_req_btn" data-pid="{{my_profile.pk}}" >Accept Request</button>
+                          <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left: 1px solid #004c06;">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item f-option" data-pid="{{my_profile.pk}}" data-opt="reject">Reject</a>
+                          </div>
+                        </div>
+
+                        <div class="btn-group d-none accept_req2" >
+                          <button type="button" class="btn btn-danger dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Requested
+                          </button>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="cancel_req">Cancel Request</a>
+                          </div>
+                        </div>
+
+                    {% elif you in '0'  and other == 'request' %}
+
+                        <div class="btn-group accept_req">
+                          <button type="button" class="btn btn-success accept_req_btn" data-pid="{{my_profile.pk}}" >Accept Request</button>
+                          <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left: 1px solid #004c06;">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="reject">Reject</a>
+                          </div>
+                        </div>
+
+                        <div class="btn-group d-none accept_req2 follow">
+                          <button type="button" class="btn btn-warning follow_btn" data-pid="{{my_profile.pk}}">Follow Back</button>
+                        </div>
+
+                        <div class="btn-group d-none requested" >
+                          <button type="button" class="btn btn-danger dropdown-toggle  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Requested
+                          </button>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="cancel_req">Cancel Request</a>
+                          </div>
+                        </div>
+
+
+                    {% elif you == 'request'  and other in '"0","follow"' %}
+                        <div class="btn-group" >
+                          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Requested
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="cancel_req">Cancel Request</a>
+                          </div>
+                        </div>
+
+                    {% elif you == 'follow'  and other in '"follow","0"' %}
+                       <div class="btn-group following" >
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Following
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item cp f-option" data-pid="{{my_profile.pk}}" data-opt="unfollow" >Unfollow</a>
+                            <a class="dropdown-item " href="/chat/message/{{my_profile.pk}}" >Message</a>
+                          </div>
+                        </div>
+                    {% endif %}
+
+
+                {% endif %}
+        </div>
+
+
+    </nav>
+
+
+
+</div>
+
+<div class="col-12 profile">
+
+    <div class="tab-content" id="myTabContent" style="padding: 10px;" >
+
+      <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+        {% include "social/profile_timeline.html" %}
+      </div>
+
+      <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+        {% include "social/profile_following.html" %}
+      </div>
+
+      <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+          {% include "social/profile_follower.html" %}
+      </div>
+
+      <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">
+        {% include "social/profile_photos.html" %}
+      </div>
+
+      <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+        {% include "social/profile_about.html" %}
+      </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="profile_modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle" style="text-transform:capitalize;">{{my_profile.name}} {{my_profile.last_name}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"  >
+            <img class="" id="original_profile" style="width:100%;max-height:28rem" src="/media/{{my_profile.profile_pic}}" >
+            <img class="" id="preview_profile" style="width:100%;max-height:28rem" src="/media/{{my_profile.profile_pic}}" >
+          </div>
+
+          {% if user.profile == my_profile %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="change_prof_btn" class="btn btn-danger">Change</button>
+            <button type="submit" id="update_prof_btn" class="btn btn-warning" form="prof_update_form" >Update</button>
+            <form id="prof_update_form" method="post" action="/profile/profile_pic_update/" enctype="multipart/form-data">{% csrf_token %}
+            <input type="file" name="profile_pic" class="d-none" accept=".JPEG,.JPG,.jpeg,.jpg,.PNG,.png" id="update_prof_input">
+            </form>
+          </div>
+          {% endif %}
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
+

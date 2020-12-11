@@ -1,0 +1,248 @@
+<div class="row mx-0 my-5" style="background: #ffffff;padding:1rem; margin: 10px 0;border: 2px solid #c1c1c1;border-radius: 1rem;">
+
+    <div style="padding: 1vw; width:100%;" >
+
+        <br>
+        <h3 style="color: #4a4a4b;">Personal Details</h3>
+        <hr>
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>First name</label>
+            <input type="text" class="form-control"  value="{{my_profile.name}}" disabled>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Last name</label>
+            {% if my_profile.last_name == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input type="text" class="form-control"  value="{{my_profile.last_name}}" disabled>
+            {% endif %}
+
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Nickname</label>
+            {% if my_profile.nickname == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control"value="{{my_profile.nickname}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Age</label>
+            {% if my_profile.age == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control"value="{{my_profile.age}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Status</label>
+            {% if my_profile.status == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{my_profile.status}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Gender</label>
+            {% if my_profile.gender == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{my_profile.gender}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12 mb-3">
+            <label >About</label>
+            {% if my_profile.about == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{my_profile.about}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <br>
+        <h3 style="color: #4a4a4b;">Work & Education</h3>
+        <hr>
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>School</label>
+            {% if about.school == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.school}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Jr.College</label>
+            {% if about.jr_college == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.jr_college}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>College</label>
+            {% if about.college == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.college}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Job</label>
+            {% if about.job == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.job}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <br>
+        <h3 style="color: #4a4a4b;">Favourites</h3>
+        <hr>
+
+        <div class="row">
+        <div class="col-md-12 mb-3">
+            <label >Movie</label>
+            {% if about.movie == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.movie}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12 mb-3">
+            <label >Song</label>
+            {% if about.song == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.song}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12 mb-3">
+            <label >Book</label>
+            {% if about.book == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.book}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Colour</label>
+            {% if about.colour == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.colour}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Fruit</label>
+            {% if about.fruit == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.fruit}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Food</label>
+            {% if about.food == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.food}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Game</label>
+            {% if about.game == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.game}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Place</label>
+            {% if about.place == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.place}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Singer</label>
+            {% if about.singer == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.singer}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Actor</label>
+            {% if about.actor == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.actor}}" disabled>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Player</label>
+            {% if about.player == "" %}
+            <input class="form-control" value="---" disabled>
+            {% else %}
+            <input class="form-control" value="{{about.player}}" disabled>
+            {% endif %}
+        </div>
+        </div>
+
+        <br>
+        {% if my_profile == user.profile %}
+        <a class="btn btn-dark" href="/setting/about" style="float:right">Edit</a>
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+<br>
+<br>
+<br>

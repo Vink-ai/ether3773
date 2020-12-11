@@ -1,0 +1,113 @@
+{% extends 'social/setting.html' %}
+{% load static %}
+{% block set_profile %}active{% endblock %}
+{% block content %}
+<h3 class="text-dark lh-100"style="text-align: center;font-family: fantasy;letter-spacing: 1px;font-size: 2rem;padding: 1rem;border-bottom: 2px solid #c7c7c7;margin-bottom: 2rem;">
+  Profile
+</h3>
+<form class="needs-validation" action="/setting/profile/" method="post" enctype="multipart/form-data" style="padding: 1vw;" > {% csrf_token %}
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>First name</label>
+        <input type="text" class="form-control" name="first_name" placeholder="" value="{{user.profile.name}}" required>
+        <div><p class="text-danger">{{error_name}}</p></div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Last name</label>
+        <input type="text" class="form-control" name="last_name"  value="{{user.profile.last_name}}" >
+        <div><p class="text-danger">{{error_last_name}}</p></div>
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label >Nickname</label>
+      <input type="text" class="form-control" name="nickname"  value="{{user.profile.nickname}}" >
+    </div>
+
+    <div class="mb-3">
+      <label >Email</label>
+      <input type="email" class="form-control" name="email" placeholder="you@example.com" value="{{user.email}}" >
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Mobile No.</label>
+        <input type="number" class="form-control" name="phone" placeholder="" value="{{user.profile.phone}}" >
+        <div><p class="text-danger">{{error_phone}}</p></div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Age</label>
+        <input type="number" class="form-control" name="age" placeholder="" value="{{user.profile.age}}" >
+        <div><p class="text-danger">{{error_age}}</p></div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Gender</label>
+          <select type="text" name="gender" class="form-control">
+              {% for i in choices.gender_choice %}
+                {% if i == user.profile.gender %}
+                <option value="{{i}}" selected>{{i}}</option>
+                {% else %}
+                <option value="{{i}}" >{{i}}</option>
+                {% endif %}
+              {% endfor %}
+          </select>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Status</label>
+          <select type="text" class="form-control" name="status" placeholder="" value="{{user.profile.status}}" >
+              {% for i in choices.status_choice %}
+                {% if i == user.profile.status %}
+                <option value="{{i}}" selected>{{i}}</option>
+                {% else %}
+                <option value="{{i}}" >{{i}}</option>
+                {% endif %}
+              {% endfor %}
+          </select>
+      </div>
+
+    </div>
+
+    <div class="mb-3">
+      <label >About</label>
+      <input type="text" class="form-control" name="about" placeholder="Anything about you." value="{{user.profile.about}}">
+    </div>
+
+    <br>
+
+    <div class=" mb-3">
+        <label>Profile Photo</label>
+        <img src="/media/{{user.profile.profile_pic}}" id="profile_img" class="form-control" style="max-width:400px;max-height:400px;">
+        <div><p class="text-danger">{{error_profile}}</p></div>
+        <button type="button" class="btn btn-secondary btn-sm" id="profile_change">Change</button>
+    </div><br><br>
+
+
+    <div class=" mb-3">
+        <label>Cover Photo</label>
+        <img src="/media/{{user.profile.cover_pic}}" id="cover_img" class="form-control" style="max-width:1100px;max-height:500px;">
+        <div><p class="text-danger">{{error_cover}}</p></div>
+        <button type="button" class="btn btn-secondary btn-sm" id="cover_change" >Change</button>
+    </div><br><br>
+
+
+    <input type="file" accept=".JPEG,.JPG,.jpeg,.jpg,.PNG,.png" class="d-none" id="profile_input" name="profile_pic" >
+    <input type="file" accept=".JPEG,.JPG,.jpeg,.jpg,.PNG,.png" class="d-none" id="cover_input" name="cover_pic" >
+
+    <input class="btn btn-dark btn-block" type="submit" style="height: 3rem;" value="Update"/>
+
+
+</form>
+
+{% endblock %}

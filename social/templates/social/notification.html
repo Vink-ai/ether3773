@@ -1,0 +1,77 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+{% block head %}
+<script src="/static/social/script/notifications.js"></script>
+{% endblock %}
+
+{% block title %}Ether - Notification{% endblock %}
+{% block notificationActive %}active{% endblock %}
+
+{% block style %}
+
+.new-badge{
+    position: relative;
+    top: -.9rem;
+    right: .7rem;
+    padding: 0.2rem .3rem;
+    border-radius: 45%;
+    font-size: 1rem;
+    background: #000000;
+    color: #ffffff;
+}
+{% endblock %}
+
+{% block timeline %}
+
+<div class="result-box my-3" >
+     <a class="result-list" href="/follow_request">
+            <span><img src="/static/social/all/request-logo.png" style="width: 4rem;"></span>
+            <span class="badge new-badge" >{{follow_req}}</span>
+            <span><h4 class="">Follow Requests</h4></span>
+     </a>
+</div>
+
+<div class="result-box my-3" >
+
+    {% if my_notification == 0 %}
+        <h4 class="text-muted mx-1">No Notification Found.</h4>
+    {% else %}
+
+        <div class="container-fluid px-0">
+        <div class="col-12 px-0" style="display:flex;">
+            <div class="col-8 px-0 pl-1">
+            <h4 class="text-muted">Notifications</h4>
+            </div>
+            <div class="col-4 px-0">
+            <button id="clear_btn" style="float:right;float: right;background: transparent;border: none;font-weight: 700;color: #676767;cursor:pointer;">Clear All</button>
+            </div>
+        </div>
+        </div>
+
+        <div class="container-fluid all_notification">
+        {% for i in my_notification %}
+        <hr>
+        <div class="media " >
+          <a href="/profile/{{i.sender.profile.pk}}"><img class="mr-3 prof-img" src="/media/{{i.sender.profile.profile_pic}}" alt=""></a>
+          <div class="media-body" style="align-self: center;">
+              {% if i.type == 'follow_request' %}
+              <a class="result-list" href="/profile/{{i.sender.profile.pk}}"><h6 class="mt-0">{{i.sender.profile.name}} {{i.sender.profile.last_name}} has sent a follow request.</h6></a>
+              {% elif i.type == 'follow_accept' %}
+              <a class="result-list" href="/profile/{{i.sender.profile.pk}}"><h6 class="mt-0">{{i.sender.profile.name}} {{i.sender.profile.last_name}} has accepted your follow request.</h6></a>
+              {% elif i.type == 'liked_post' %}
+              <a class="result-list" href="/profile/{{i.sender.profile.pk}}"><h6 class="mt-0">{{i.sender.profile.name}} {{i.sender.profile.last_name}} has liked your post.</h6></a>
+              {% elif i.type == 'commented_post' %}
+              <a class="result-list" href="/profile/{{i.sender.profile.pk}}"><h6 class="mt-0">{{i.sender.profile.name}} {{i.sender.profile.last_name}} has commented on your post.</h6></a>
+              {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block js %}{% endblock %}

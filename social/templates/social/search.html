@@ -1,0 +1,43 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+{% block head %}
+
+<script>
+
+</script>
+
+{% endblock %}
+
+{% block title %}Ether - Search{% endblock %}
+
+
+{% block timeline %}
+
+<div class="result-box my-3" >
+
+
+    {% if all_profile == 0 %}
+        <h3 class="text-muted mx-1">No Result Found.</h3>
+    {% else %}
+
+        <h3 class="text-muted mx-1">Results.</h3>
+        {% for i in all_profile %}
+        <hr>
+        <div class="media" >
+          <a href="/profile/{{i.pk}}"><img class="mr-3 prof-img" src="/media/{{i.profile_pic}}" alt=""></a>
+          <div class="media-body" style="align-self: center;">
+              <a class="result-list" href="/profile/{{i.pk}}"><h5 class="mt-0">{{i.name}} {{i.last_name}}</h5></a>
+              <h6 class="mt-0 text-muted">{{i.about|slice:"0:20"}}
+                  {% if i.about|length >= 20 %}...{% endif %}
+              </h6>
+          </div>
+        </div>
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block js %}{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+{% block head %}
+<link href="{%static 'social/css/chat.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Ether - Chats{% endblock %}
+{% block chatActive %}active{% endblock %}
+
+{% block timeline %}
+<div class="row mx-0 p-3">
+    <div class="col-12 chat-img-block">
+        <img src="/static/social/all/bg-img.png" class="chat-img">
+    </div>
+    <div class="col-12 chat-col">
+        <div class="mt-2">
+            <form class="form-inline" action="/chat/search/" method="get">{% csrf_token %}
+                <div class="input-group search-input" >
+                  <input type="text" class="form-control" name="search" placeholder="Search" value="{{cquery}}" style="background:#f0f0f0;height: 35px;">
+                  <button class="input-group-append p-0" style="border: none; border-radius: 5px; cursor: pointer;" type="submit" >
+                    <span class="input-group-text" style="background:#d5d5d5;height: 35px;"><i class="material-icons">search</i></span>
+                  </button>
+                </div>
+            </form>
+        </div>
+        <hr style="background: #8f8f8f;">
+
+        {% if chat_frd == 0 %}
+        <p> No result. </p>
+        {% else %}
+            {% for i in chat_frd %}
+            <a class="chat_users tc fs a-link " href="/chat/message/{{i.pk}}">
+                <div><span style="align-self: center;" ><img class="profile-icon" src="/media/{{ i.profile_pic }}"> </span>
+                {{i.name}} {{i.last_name}}
+                </div>
+            </a>
+            <hr>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}{% endblock %}

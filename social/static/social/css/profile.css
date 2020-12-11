@@ -1,0 +1,76 @@
+.nav-tabs {
+    border: none;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #ffd302;
+    background-color: transparent;
+    border: none;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: unset;
+    color: #909090;
+    text-transform: capitalize;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover{
+    color: white;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active:hover{
+    color: #ffd302;
+}
+
+.friend-request{
+    width: fit-content;
+    display: flex;
+}
+
+.friend-btn{
+    float: right;
+    margin-right: 1rem;
+    width: fit-content;
+    margin: 0 2px;
+}
+
+.follow-link{
+    text-transform: capitalize;
+    color: black;
+}
+
+.follow-link:hover{
+    color: grey;
+    text-decoration:none;
+}
+
+.text_input{
+    border:none;
+    width:100%;
+}
+
+.text_input:focus{
+    text-decoration:none;
+    outline:none;
+}
+
+
+@media (max-width: 991px){
+
+    .friend-request{
+        width: -webkit-fill-available;
+        border-top: 1px solid #676767;
+        padding: .5rem;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+        min-width: 120px;
+        max-width: 140px;
+        padding: .5rem 0;
+    }
+
+
+}

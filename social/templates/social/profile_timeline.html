@@ -1,0 +1,185 @@
+
+<div class="col-12 post-list">
+
+    {% if user.profile == my_profile %}
+    <div class="post">
+
+        <div class="post-header">
+                <a class="tc fs a-link" href="/profile/{{user.profile.pk}}">
+                    <span style="align-self: center;" ><img class="profile-icon" src="/media/{{user.profile.profile_pic}}"> </span>
+                    {{my_profile.name}} {{my_profile.last_name}}
+                </a>
+        </div>
+        <div class="post-body"style="border-bottom: 1px solid #c1c1c1;">
+
+            <h4 class="text-muted" id="post_default" style="text-align: initial;">
+                <span style="align-self: center;" ><img class="profile-icon" style="height:4rem;width:4rem;border-radius: 35px;" src="/media/{{user.profile.profile_pic}}">
+                    <font>Create a post.</font>
+                </span>
+            </h4>
+
+            <textarea id="input_txt" name="text" form="post_upload" rows="10" class="text_input" ></textarea>
+
+            <img class="post-img" id="new_img" src="">
+
+        </div>
+
+        <div class="post-footer">
+
+            <div class="col-12" id="default_foot" style="display: flex; padding:1px;">
+
+                <button class="col-6 post-footer-option2" id="post_img" style="font-size:1.1rem;color: black; border-right: 1px solid #e4e4e4;padding: 0;">
+                            <span style="align-self: center; vertical-align: middle;" ><img  style=" width: 1.7rem; vertical-align: sub;" src="/static/social/all/img-logo.png"> </span>
+                            Images
+                </button>
+                <button class="col-6 post-footer-option2" id="post_txt" style="font-size:1.1rem;color: black;padding: 0;" >
+                            <span style="align-self: center; vertical-align: middle;" ><img  style=" width: 1.7rem; vertical-align: sub;" src="/static/social/all/vid-logo.png"> </span>
+                            Text
+                </button>
+
+            </div>
+
+            <div class="col-12" id="default_foot2" style=" padding:1px;">
+
+                <form id="post_upload" action="/profile/post/" method="post" enctype="multipart/form-data"  style=" width: 100%;">{% csrf_token %}
+                    <input type="text" name="subject" id="img_sub" style=" width: 95%;border: 1px solid #797979;" class="form-control"  placeholder="Message">
+                    <hr class="sub_hr">
+                    <input type="file" id="input_img" name="new_img" accept=".JPEG,.JPG,.jpeg,.jpg,.PNG,.png,.GIF,.gif" class="d-none" >
+                    <div style=" width: 100%; display: flex;">
+                        <button class="col-6 post-footer-option2" id="post_cancel" type="button" style="font-size:1.2rem;color: black; border-right: 1px solid #e4e4e4;">
+                                <span style="align-self: center; vertical-align: middle;" ><img  style=" width: 1.7rem; vertical-align: sub;" src="/static/social/all/cancel-logo.png"> </span>
+                                Cancel
+                        </button>
+                        <button class="col-6 post-footer-option2" type="submit" style="font-size:1.2rem;color: black;" >
+                                <span style="align-self: center; vertical-align: middle;" ><img  style=" width: 1.7rem; vertical-align: sub;" src="/static/social/all/post-logo.png"> </span>
+                                Post
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+
+    {% for i in posts %}
+    <div class="post" id="posts">
+
+        <div class="post-header">
+                <a class="tc fs a-link" href="/profile/{{my_profile.pk}}">
+                    <span style="align-self: center;" ><img class="profile-icon" src="/media/{{ my_profile.profile_pic }}"> </span>
+                    {{my_profile.name}} {{my_profile.last_name}}
+                </a>
+
+                {% if user.profile == my_profile or user.is_superuser %}
+                <div class="dropdown" style="display:inline;">
+                  <button title="Delete" style="float: right; border: none; background: transparent;" type="button" id="d{{i.pk}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons delete-icon" >delete</i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="d{{i.pk}}">
+                    <p style="padding: 0 .5rem;">Are you sure about deleting Post</p>
+                    <a class="btn btn-danger" style="float:right;margin-right: 1rem;" href="/profile/post_delete/{{i.pk}}">Delete</a>
+                  </div>
+                </div>
+                {% endif %}
+
+                {% if i.subject != "" %}
+                <div class="col-12" style=" display: flex; padding: .5rem;">
+                    <p class="m-0">{{i.subject}}</p>
+                </div>
+                {% endif %}
+
+
+        </div>
+
+        {% if i.text == "" %}
+        <div class="post-body">
+            <img class="post-img" src="/media/{{i.pic}}">
+        </div>
+        {% else %}
+        <div class="post-body">
+            <div style="padding: 1rem; border: 2px dotted #9f9090; background: #ebebeb;">
+            <h5 class="t-post">{{i.text}}</h5>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="post-footer">
+
+            <div class="container-fluid">
+            <div class="row" style="padding: .3rem 1rem;">
+                <div class="col-12" style="color: #585454;  border-bottom: 1px solid #cacaca;">
+                    <a class="cp like-noty" data-toggle="modal" data-target="#likes{{i.pk}}">
+                        <span style="align-self: center; vertical-align: middle;" ><i class="material-icons  post-footer-icon" >thumb_up</i> </span><font id="l{{i.pk}}" >{{i.like_count}}</font></a>
+                    <a class="cp comment-noty "  data-cn="{{i.pk}}" ><font id="c{{i.pk}}" >{{i.comment_count}}</font> comments</a>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-12" style="display: flex; padding:1px;">
+
+                <button class="col-6 post-footer-option2 like like{{i.pk}} {% for l in likes  %} {% if l.post == i and l.liked_by == user.profile%}ticked{% endif %}{% endfor %}"
+                data-id="{{i.pk}}" data-pid="{{i.uploaded_by.pk}}"  style="font-size:1.1rem;border-right: 1px solid #e4e4e4;padding: 0;"
+                data-myp="{{user.profile.pk}}" data-mynm="{{ user.profile.name}} {{user.profile.last_name}}" data-mypp="/media/{{ user.profile.profile_pic }}">
+                    <span style="align-self: center; vertical-align: middle;" ><i class="material-icons  post-footer-icon" >thumb_up</i> </span>
+                    Like
+                </button>
+
+                <button class="col-6 post-footer-option2 comment-btn " data-cid="{{i.pk}}" style="font-size:1.1rem;padding: 0;" >
+                            <span style="align-self: center; vertical-align: middle;" ><i class="material-icons  post-footer-icon" >chat_bubble</i></span>
+                            Comment
+                </button>
+
+            </div>
+
+            <div class="col-12 d-none comment-block{{i.pk}} " style="margin-top:4px; padding: 1rem .5rem; border-top: 1px solid #b5afaf;">
+
+                <div class="comment-box" id="cmt_body{{i.pk}}">
+
+                {% for c in comments %}
+                {% if c.post == i %}
+                <div class="comments" >
+
+                    <span>
+                        <a href="/profile/{{c.commented_by.pk}}"> <img style="width:1.5rem;height:1.5rem;border-radius:3rem;" src="/media/{{c.commented_by.profile_pic }}"> </a>
+                    </span>
+                    <a class="tc cp fs a-link" href="/profile/{{c.commented_by.pk}}" > {{c.commented_by.name}}&nbsp:&nbsp</a>
+                    <p class="m-0" style=" text-align: initial; padding: 0 .5rem;">{{c.message}}</p>
+
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                </div>
+
+                <hr>
+
+                <div class="form-inline" style="margin-top: 1rem; padding: 0 5%;" >
+                    <span style="width:10%" >
+                        <a> <img style="float:right; padding-right: 2px; width:2rem; height:2rem; border-radius:3rem;" src="/media/{{ user.profile.profile_pic }}"> </a>
+                    </span>
+
+                    <div class="input-group" style="width: 90%;">
+                      <input type="text" class="form-control " id="comment-input{{i.pk}}"  placeholder="Comments" style="background: #f6f6f6;height: 2rem;">
+                      <button class="input-group-append p-0 comment-send" data-id="{{i.pk}}" data-myp="/profile/{{user.profile.pk}}" data-mynm="{{ user.profile.name}}" data-mypp="/media/{{ user.profile.profile_pic }}" data-pid="{{i.uploaded_by.pk}}" style="border: none; border-radius: 5px; cursor: pointer;" type="button" >
+                        <span class="input-group-text" style="background: #dddddd;height: 2rem;"><i class="material-icons">send</i></span>
+                      </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        {% include "social/modal.html" %}
+
+    </div>
+    {% endfor %}
+
+
+</div>

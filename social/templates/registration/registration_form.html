@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Ether - Register{% endblock %}
+
+{% block s_login_btn %} d-none {% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<main class="p-1">
+
+	<div class="row text-justify">
+		<div class="col">
+		<h1 style="text-align: center;">Registration</h1>
+		<hr>
+		</div>
+	</div>
+
+	<form enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+		{{form | crispy}}<br>
+		<input class="btn btn-dark" style="float: right;" type="submit" value="Register"/>
+		<a class="btn btn-success  d-md-none" style="float: right; margin:0 10px;" href="/accounts/login/">Login</a>
+	</form>
+
+</main>
+{% endblock %}

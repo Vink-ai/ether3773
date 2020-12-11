@@ -1,0 +1,28 @@
+.bkg-dark {
+    background-color: #202020;
+}
+
+.brandLogo {
+    width: 15vw;
+    min-width: 115px;
+    max-width: 300px;
+    max-height: 100px;
+}
+
+.head_btn{
+    position: absolute;
+    right: 15px;
+    top: 2vw;
+}
+
+
+@media (max-width: 769px){
+
+    .brandLogo {
+        width: 100%;
+        min-width: none;
+        max-width: none;
+        max-height: none;
+    }
+
+}

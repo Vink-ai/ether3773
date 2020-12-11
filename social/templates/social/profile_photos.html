@@ -1,0 +1,32 @@
+<div class="row mx-0 my-5 timeline_block" style="place-content: center;">
+    <div class="col-12">
+        <h3>Profile Photos </h3>
+        <hr>
+    </div>
+
+    <div class="col-md-4 photo-block b1" >
+        <h4 style="color: #606060;padding: 0px .2rem;">Profile Pic</h4>
+        <hr>
+        <img src="/media/{{my_profile.profile_pic}}" class="profile_photo">
+    </div>
+
+    <div class="col-md-8 photo-block b2" >
+        <h4 style="color: #606060;padding: 0px .2rem;">Cover Pic</h4>
+        <hr>
+        <img src="/media/{{my_profile.cover_pic}}" class="cover_photo">
+    </div>
+</div>
+
+<div class="row mx-0 my-5 timeline_block" >
+    <div class="col-12">
+        <h3>Timeline Photos </h3>
+        <hr>
+    </div>
+    {% for i in posts %}
+    {% if i.text == "" %}
+    <div class="col-md-6 photo-block b3 " style="">
+        <img src="/media/{{i.pic}}" class="timeline_photo">
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

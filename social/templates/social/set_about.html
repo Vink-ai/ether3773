@@ -1,0 +1,120 @@
+{% extends 'social/setting.html' %}
+{% load static %}
+{% block set_about %}active{% endblock %}
+{% block content %}
+<h3 class="text-dark lh-100"style="text-align: center;font-family: fantasy;letter-spacing: 1px;font-size: 2rem;padding: 1rem;border-bottom: 2px solid #c7c7c7;margin-bottom: 2rem;">
+  About
+</h3>
+
+<form class="needs-validation" action="/setting/about/" method="post" enctype="multipart/form-data" style="padding: 1vw;" > {% csrf_token %}
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>School</label>
+        <input type="text" class="form-control" name="school"  value="{{about.school}}" >
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Jr.College</label>
+        <input type="text" class="form-control" name="jr_college"  value="{{about.jr_college}}" >
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>College</label>
+        <input type="text" class="form-control" name="college" placeholder="" value="{{about.college}}" college>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Job</label>
+        <input type="text" class="form-control" name="job"  value="{{about.job}}" >
+      </div>
+
+    </div>
+
+    <br>
+    <br>
+    <h3 style="color: #4a4a4b;">Favourites</h3>
+    <hr>
+
+    <div class="mb-3">
+      <label >Movie</label>
+      <input type="text" class="form-control" name="movie"  value="{{about.movie}}">
+    </div>
+
+    <div class="mb-3">
+      <label >Song</label>
+      <input type="text" class="form-control" name="song"  value="{{about.song}}">
+    </div>
+
+    <div class="mb-3">
+      <label >Book</label>
+      <input type="text" class="form-control" name="book" value="{{about.book}}" >
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Colour</label>
+        <input type="text" class="form-control" name="colour"  value="{{about.colour}}">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Fruit</label>
+        <input type="text" class="form-control" name="fruit" placeholder="" value="{{about.fruit}}" >
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Food</label>
+        <input type="text" class="form-control" name="food" value="{{about.food}}">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Game</label>
+        <input type="text" class="form-control" name="game" value="{{about.game}}" >
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Place</label>
+        <input type="text" class="form-control" name="place" value="{{about.place}}" >
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Singer</label>
+        <input type="text" class="form-control" name="singer"  value="{{about.singer}}" >
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <label>Actor</label>
+        <input type="text" class="form-control" name="actor" value="{{about.actor}}" >
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Player</label>
+        <input type="text" class="form-control" name="player" value="{{about.player}}" >
+      </div>
+    </div>
+    <br>
+    <br>
+    <input class="btn btn-dark btn-block" type="submit" style="height: 3rem;" value="Update"/>
+
+
+</form>
+
+{% endblock %}

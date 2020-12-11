@@ -1,0 +1,51 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+{% block head %}
+  <link href="{%static 'social/css/setting.css' %}" rel="stylesheet">
+  <script src="/static/social/script/setting.js"></script>
+
+  <script>
+      $(document).ready(function(){
+
+        $(".toggle-btn").click(function(){
+          $("#setting-list").toggleClass("display2");
+        });
+
+      });
+  </script>
+
+{% endblock %}
+
+{% block title %}Ether - Settings{% endblock %}
+{% block settingActive %}active{% endblock %}
+
+{% block timeline %}
+
+
+
+<div class="sidebar">
+
+  <div class="setting-row">
+    <h2 style="float:left;float: left; color: white; padding: 0px 5px;font-family: none;">Settings</h2>
+    <button class="toggle-btn btn btn-outline-success" type="button" >
+        <span><i class="material-icons" style="font-size:36px">list</i></span>
+    </button>
+  </div>
+
+  <ul id="setting-list" class="display">
+    <a class="link {% block set_profile %}{% endblock %}" href="/setting/profile">Profile</a>
+    <a class="link {% block set_about %}{% endblock %}" href="/setting/about">About</a>
+    <a class="link {% block set_security %}{% endblock %}" href="/setting/security">Security</a>
+  </ul>
+
+</div>
+
+<div class="content">
+  {% block content %} {% endblock %}
+</div>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block js %}{% endblock %}

@@ -1,0 +1,148 @@
+.chat-col
+{
+    display:none;
+}
+
+.chat-img-block
+{
+    text-align: center;
+    padding: 3rem 1rem 0 1rem;
+}
+
+.chat-img
+{
+    width: 80%;
+    height: 80%;
+    border: 2px solid;
+    border-radius: 1rem;
+}
+
+.message-list {
+    max-height: 500px;
+    max-width: 450px;
+    width: 100%;
+}
+
+.message-head {
+    border-bottom: 1px solid;
+    background: #000000;
+    color: #d0c113;
+    padding: .5rem 1rem;
+    border-color: #4c4c4c;
+    display: flex;
+}
+
+.message-body{
+    max-height: 400px;
+    background: #002f2d;
+    min-height: 250px;
+}
+
+.rec-icon
+{
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 1px;
+    border-radius: 3rem;
+    border: .5px solid #8e8e8e;
+}
+
+.sender-msg{
+    float: right;
+    padding: .5rem;
+    max-width: 80%;
+    background: #9081ce;
+    border-radius: 1rem;
+    color: #050225;
+    font-family: cursive;
+    font-size: large;
+    margin: 0 .1rem;
+}
+
+.receiver-msg{
+    float: left;
+    padding: .5rem;
+    max-width: 80%;
+    background: #ffd6d6;
+    border-radius: 1rem;
+    color: #3e3e3e;
+    font-family: cursive;
+    font-size: large;
+    margin: 0 .1rem;
+}
+
+
+.message-footer{
+    border-top: 1px solid #485756;
+    padding: 5px;
+    background: #000000;
+}
+
+.msg-input{
+    background: #ffffff;
+    height: 1.9rem;
+}
+
+.send-logo{
+    background: #dedede;
+    height: 1.9rem;
+    color: #2b2b2b;
+}
+
+.message-body::-webkit-scrollbar-track {
+    background: #002f2d;
+}
+
+@media (max-width: 880px){
+
+    .message-list {
+
+    }
+
+    .message-body{
+
+    }
+
+    .message-footer{
+
+    }
+
+}
+
+@media (max-width: 767px){
+
+    .chat-img
+    {
+        display:none;
+    }
+    .chat-col
+    {
+        display: block;
+        padding: .5rem;
+        border: 2px solid #737373;
+        background: white;
+        border-radius: 1rem;
+    }
+
+    .message-list {
+
+    }
+
+    .message-body{
+
+    }
+
+}
+
+@media (max-width: 500px){
+
+    .message-list {
+        max-height: 60vh;
+        width: 100%;
+    }
+
+    .message-body{
+        max-height: 46vh;
+    }
+
+}

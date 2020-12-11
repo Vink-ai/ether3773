@@ -1,0 +1,43 @@
+{% extends 'social/setting.html' %}
+{% load static %}
+{% block set_security %}active{% endblock %}
+{% block content %}
+<h3 class="text-dark lh-100"style="text-align: center;font-family: fantasy;letter-spacing: 1px;font-size: 2rem;padding: 1rem;border-bottom: 2px solid #c7c7c7;margin-bottom: 2rem;">
+  Security
+</h3>
+
+
+<div class="block" style="width: fit-content; margin: 0 auto; background: #e2e2e2; padding: 1rem; border: 2px solid #909090; border-radius: 1rem">
+
+  <h5 style="color: #6b6868;">Change Password</h5>
+  <hr>
+  <div class=" mb-3 " style="min-width:250px;">
+    <label>Old Password</label>
+    <input type="password" class="form-control " style="max-width:400px;" id="opassword" >
+    <p id="pass_error" style="color:red;"></p>
+  </div>
+
+  <div class="mb-3 px-auto" style="min-width:250px;">
+    <label>New Password</label>
+    <input type="password" class="form-control" style="max-width:400px;" id="npassword" >
+    <p id="pass_error2" style="color:red;"></p>
+  </div>
+
+  <div style="height:2rem;">
+  <button class="btn btn-dark btn-sm" id="pas_change" style="float:right;">Change</button>
+
+  </div>
+
+</div>
+
+<a class="d-none" id="logout" href="/accounts/logout/"></a>
+
+<!--
+
+u = User.objects.get(username='john')
+u.set_password('new password')
+u.save()
+
+ -->
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+{% block head %}
+<link href="{%static 'social/css/chat.css' %}" rel="stylesheet">
+<script src="/static/social/script/chat.js"></script>
+{% endblock %}
+
+{% block title %}Ether - Chats{% endblock %}
+{% block chatActive %}active{% endblock %}
+
+{% block timeline %}
+<div class="row mx-0 p-3" style="justify-content: center;">
+
+    <div class=" message-list ">
+        <input id="pvr" class="d-none" data-ppid="{{rec.profile_pic}}" value="{{rec.pk}}">
+        <div class="message-head tc">
+            <span style="float: left; height: 100%;padding: 3px;" ><a href="/profile/{{rec.pk}}"><img class="rec-icon" src="/media/{{ rec.profile_pic }}"></a></span>
+            <a class="a-link " style="color: #d0c113;" href="/profile/{{rec.pk}}" ><h4>{{rec.name}} {{rec.last_name}}</h4></a>
+        </div>
+
+        <div class="chat-body message-body" id="msg_body">
+
+            {% for m in msg %}
+            {% if not m.recc %}
+            <div class="sender-block" style="width:70%;float: right;margin: .5rem .1rem;">
+                <h5 class="sender-msg" >{{m.msgg}}</h5>
+            </div>
+
+            {% elif m.recc %}
+            <div class="receiver-block" data-rid="{{rec.pk}}" style="width:70%;float: left;margin: .5rem .1rem;">
+                <span style="float: left;" ><a href="/profile/{{rec.pk}}"><img class="rec-icon" src="/media/{{ rec.profile_pic }}"></a></span>
+                <h5 class="receiver-msg" >{{m.msgg}}</h5>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <div class="message-footer">
+
+            <div class="form-inline"  style="width: 100%; max-width: 500px;">
+                <div class="input-group search-input" style="width: 100%; max-width: 500px;">
+
+                  <input type="text" class="form-control msg-input" id="msg_input" placeholder="Message" >
+
+                  <button class="input-group-append p-0" id="send_btn" data-rid="{{rec.pk}}"  style="border: none; border-radius: 5px; cursor: pointer;" type="submit" >
+                    <span class="input-group-text send-logo" ><i class="material-icons">send</i></span>
+                  </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}{% endblock %}

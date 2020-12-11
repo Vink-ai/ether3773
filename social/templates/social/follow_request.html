@@ -1,0 +1,73 @@
+{% extends 'social/basic.html' %}
+{% load static %}
+
+{% block title %}Ether - Notification{% endblock %}
+{% block notificationActive %}active{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function(){
+
+        $(".accept_req_btn").click(function(){
+            var pid;
+            pid = $(this).attr("data-pid");
+            $.ajax(
+            {
+                type:"GET",
+                url: "/profile/follow_operation/",
+                data:{
+                         prof_id: pid,
+                         operation:'accept_req'
+                    },
+                success: function( data )
+                {
+                    if(data.accepted=='True')
+                    {
+                        $("."+pid.toString()).addClass("d-none");
+                    }
+                }
+             })
+        });
+
+    });
+
+</script>
+{% endblock %}
+
+
+{% block timeline %}
+
+<div class="result-box my-3" >
+
+    {% if follow_req == 0 %}
+        <h3 class="text-muted mx-1">No Follow request Pending.</h3>
+    {% else %}
+
+        <h3 class="text-muted mx-1">Follow Requests</h3>
+        {% for i in follow_req %}
+        <div class="media {{i.followed_by.profile.pk}}" style="border-top: 1px solid #979797; margin: 1rem 0 0 0;padding: 1rem .5rem;">
+          <a href="/profile/{{i.followed_by.profile.pk}}"><img class="mr-3 prof-img" style="width:5rem;height:5rem;" src="/media/{{i.followed_by.profile.profile_pic}}"></a>
+
+          <div class="media-body" style="align-self: center;">
+                <a class="result-list" href="/profile/{{i.followed_by.profile.pk}}"><h5 class="mt-0">{{i.followed_by.profile.name}} {{i.followed_by.profile.last_name}}</h5></a>
+                <div class="btn-group accept_req">
+                  <button type="button" class="btn btn-success accept_req_btn" data-pid="{{i.followed_by.profile.pk}}" >Accept Request</button>
+                  <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-left: 1px solid #004c06;">
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item cancel_accept_req" href="#">Cancel Request</a>
+                    <a class="dropdown-item block_user" href="#">Block</a>
+                  </div>
+                </div>
+          </div>
+        </div>
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block js %}{% endblock %}
